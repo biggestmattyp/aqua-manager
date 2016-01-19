@@ -1,12 +1,22 @@
 var piblaster = require('pi-blaster.js');
 var CronJob = require('cron').CronJob;
 
+var lightTypeEnum = object.freeze({COOL: 17, WARM: 18});
+
 module.exports = {
   handleLightSchedule: function(lightSchedule) {
     console.log('doing my job ' + lightSchedule);
   },
 
-  fadeIn: function(lightSchedule) {
+  fadeIn: function(value, lightType) {
+    piblaster.setPwm(lightType, value/100);
+  },
+
+  fadeOut: function(value, lightType) {
+    piblaster.setPwm(lightType, value/100);
+  },
+
+  readCurrentLightIntensity: function(lightType) {
 
   },
 
