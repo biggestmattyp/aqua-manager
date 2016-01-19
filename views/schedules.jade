@@ -1,0 +1,106 @@
+extends ./base.jade
+
+block otherCss
+link(href='bootstrap-multiselect/dist/css/bootstrap-multiselect.css', rel='stylesheet')
+
+block content
+  div.container
+    h1= message
+    hr
+    div(class='panel panel-default')
+      div(class='panel-heading')
+        h3(class='panel-title')='Add/Edit Lighting Schedule'
+      div(class='panel-body')
+        form(action='/schedule/create', method='post', class='form-horizontal')
+          div(class='row')
+            label(class='col-sm-3 control-label')='Schedule Name:'
+            div(class='col-sm-3')
+              input(type='text', placeholder="Schedule Name", name='scheduleName', class='form-control', required=true)
+          div(class='row')
+            label(class='col-sm-3 control-label')='Cool White Intensity:'
+            div(class='col-sm-3')
+              div(class='input-group')
+                input(type='number', name='coolValue', placeholder='0-100', class='form-control', min=0, max=100, required=true)
+                span(class='input-group-addon')='%'
+          div(class='row')
+            label(class='col-sm-3 control-label')='Warm White Intensity:'
+            div(class='col-sm-3')
+              div(class='input-group')
+                input(type='number', name='warmValue', placeholder='0-100', class='form-control', min=0, max=100, required=true)
+                span(class='input-group-addon')='%'
+          div(class='row')
+            label(class='col-sm-3 control-label')='Transition:'
+            div(class='col-sm-2')
+              select(name='transitionStyle', placeholder='Transition Style', class='form-control', required=true)
+                option(value='fade')='Fade In/Out'
+                option(value='abrupt')='Abrupt'
+          div(class='row')
+            label(class='control-label col-sm-3')='Cron Interval:'
+          div(class='row')
+            label(class='control-label', class='col-sm-3')='Hours:'
+            select(name='hours', id='hours-multi', class='form-control col-sm-2', required=true, multiple='multiple')
+              - for (var x = 0; x < 24; x++)
+                  option(value=x)=x
+              option(value='*')='All'
+          div(class='row')
+            label(class='control-label', class='col-sm-3')='Minutes:'
+            select(name='minutes', id='mins-multi', class='form-control col-sm-2', required=true, multiple='multiple')
+              - for (var x = 0; x < 60; x++)
+                  option(value=x)=x
+              option(value='*')='All'
+          div(class='row')
+            label(class='control-label col-sm-3')='Days Of Month:'
+            select(name='daysOfMonth', id='days-multi', class='form-control col-sm-2', required=true, multiple='multiple')
+              - for (var x = 0; x < 32; x++)
+                  option(value=x)=x
+              option(value='*')='All'
+          div(class='row')
+            label(class='control-label col-sm-3')='Months Of Year:'
+            select(name='monthsOfYear', id='months-multi', class='form-control col-sm-2', required=true, multiple='multiple')
+              - for (var x = 0; x < 13; x++)
+                  option(value=x)=x
+              option(value='*')='All'
+          div(class='row')
+            label(class='control-label col-sm-3')='Days Of Week:'
+            select(name='daysOfWeek', id='daysw-multi', class='form-control col-sm-2', required=true, multiple='multiple')
+              - for (var x = 0; x < 7; x++)
+                  option(value=x)=x
+              option(value='*')='All'
+          div(class='row')
+            div(class='col-sm-3') 
+              input(type='submit', value='Save', class='btn btn-primary')
+    div(class='panel panel-default')
+      div(class='panel-heading')
+        h3(class='panel-title')='Existing Lighting Schedules'
+      div(class='panel-body')
+        div(class='table responsive')
+          table(class='table table-hover')
+            thead
+              tr
+                th='Id'
+                th='Schedule Name'
+                th='Transition Style'
+                th='Cron Interval'
+                th='Cool White Intensity'
+                th='Action'
+            tbody
+              each schedule in schedules
+                tr
+                  th=schedule.id
+                  th=schedule.scheduleName
+                  th=schedule.transitionStyle
+                  th=schedule.minutes + ' ' + schedule.hours + ' ' + schedule.daysOfMonth + ' ' + schedule.monthsOfYear + ' ' + schedule.daysOfWeek
+                  th=schedule.coolValue
+                  th
+                    a(href="/schedule/" + schedule.id + "/destroy")='Destroy'
+
+block scripts
+  script(src='bootstrap-multiselect/dist/js/bootstrap-multiselect.js')
+  script(type='text/javascript').
+    $(document).ready(function() {
+      $('#hours-multi').multiselect();
+      $('#mins-multi').multiselect();
+      $('#days-multi').multiselect();
+      $('#months-multi').multiselect();
+      $('#daysw-multi').multiselect();
+    });

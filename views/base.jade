@@ -1,0 +1,20 @@
+doctype html5
+html
+  head
+    title=title
+    link(href='bootstrap/dist/css/bootstrap.css', rel='stylesheet')
+    block otherCss
+  body
+    block navigation
+      div.container
+        ul(class='nav nav-pills')
+          block home-nav
+            li(role='presentation' class=isHome ? 'active' : '')
+              a(href='/')='Home'
+          block schedules-nav
+            li(role='presentation' class=isSchedules ? 'active' : '')
+              a(href='/schedules')='Schedules'
+    block content
+    script(src='jquery/dist/jquery.js')
+    script(src='bootstrap/dist/js/bootstrap.js')
+    block scripts

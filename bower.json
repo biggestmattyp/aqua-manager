@@ -1,0 +1,37 @@
+{
+  "name": "aqua-manager",
+  "version": "1.0.0",
+  "homepage": "https://github.com/biggestmattyp/aqua-manager",
+  "authors": [
+    "MattyP <pontiusmatt@gmail.com>"
+  ],
+  "description": "web based aquarium manangement for the rPi",
+  "main": "app.js",
+  "moduleType": [
+    "es6",
+    "globals",
+    "node"
+  ],
+  "keywords": [
+    "aquarium",
+    "management",
+    "LED",
+    "DIY",
+    "Raspberry",
+    "Pi",
+    "Raspberry",
+    "Pi2"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap-multiselect": "~0.9.12",
+    "bootstrap": "~3.3.4"
+  }
+}
